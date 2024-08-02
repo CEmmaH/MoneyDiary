@@ -1,0 +1,246 @@
+@charset "ISO-8859-1";
+
+	header {
+	  background-color: #666;
+	  padding: 30px;
+	  text-align: center;
+	  font-size: 35px;
+	  color: white;
+	}
+	h2 {
+	  font-family: arial, sans-serif;
+	  font-size: 40px;
+      text-align: center;
+	}
+    form {
+         
+      margin: 0 auto;
+    }	
+	.div-container {
+       display: flex;
+       height: 100vh;
+    }
+	.table-container{
+		display: inline-block;
+		vertical-align: top;
+		width: 45%;
+		margin: 1%;
+	}
+	.table {
+	  display: flex;
+      justify-content: center;
+      align-items: center;
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+	.table-manage{
+	  align-items: center;
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+    .tabs {
+       display: flex;
+       flex-direction: column;
+       width: 200px;
+       border-right: 1px solid #ccc;
+    }
+
+    .tab {
+       padding: 10px 20px;
+       cursor: pointer;
+       border-bottom: 1px solid #ccc;
+    }
+
+    .tab.active {
+       background-color: #f1f1f1;
+       border-left: 2px solid #000;
+    }
+
+    .tab-content {
+       display: none;
+       padding: 20px;
+       flex-grow: 1;
+    }
+
+    .tab-content.active {
+       display: block;
+    }
+
+	.tr_label{
+		text-align:left;
+		width: 30%;
+		height: 40px;
+		font-family: arial, sans-serif;
+		font-size: 20px;
+	}
+
+	.td{
+	  border: 1px solid #dddddd;
+	  text-align: left;
+	  padding: 8px;
+	  width: 150px;
+	}
+	.td1{
+	  border: 1px solid #dddddd;
+	  text-align: left;
+	  padding: 8px;
+	  width: 100%;
+	}
+	.td2{
+	  border: 1px solid #dddddd;
+	  text-align: left;
+	  padding: 8px;
+	  width:10px;
+	}
+    .td2 img {
+      width: 20px; /* 设置图片宽度 */
+      height: auto; /* 保持图片比例 */
+      cursor: pointer; /* 鼠标指针样式 */
+    }	
+	button {
+      margin-top: 20px;
+      width: 150px; 
+      height: 50px; 
+      font-size: 30px;
+    }
+	.td-button{
+	  border: 1px solid #dddddd;
+	  text-align: center;
+	  padding: 8px;
+	  width: 150px;
+	}
+	th{
+	  border: 1px solid #dddddd;
+	  text-align: left;
+	  padding: 8px;
+	  width: 150px;
+	  font-size: 30px;
+	}
+	a{
+		cursor: pointer;
+		text-decoration: none;
+		color: black;
+	}
+    input[type="text"] {
+        width: 300px;
+        /*设置输入框内部的内边距为10像素，使内容与边框之间有足够的间距 */
+        padding: 10px;  
+        border: 1px solid #ccc;
+        /* 设置输入框的边角圆润程度为4像素，使边角看起来更加平滑 */
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    input[type="password"] {
+        width: 300px;
+        /*设置输入框内部的内边距为10像素，使内容与边框之间有足够的间距 */
+        padding: 10px;  
+        border: 1px solid #ccc;
+        /* 设置输入框的边角圆润程度为4像素，使边角看起来更加平滑 */
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    input[type="date"] {
+        width: 300px;
+        padding: 10px;  
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    textarea{
+    	width: 500px;
+    	height: 50px;
+    	padding: 10px;
+    	border: 1px solid #ccc;
+    	border-radius: 4px;
+    	font-size: 16px;
+    }
+    select{
+    	width: 320px;
+    	padding: 10px;
+    	border: 1px solid #ccc;
+    	border-radius: 4px;
+    	font-size: 16px;
+    }
+    .small-button{
+    	padding: 5px 10px; /* 内边距 */
+	    font-size: 16px; /* 字体大小 */
+	    font-weight: bold; /* 字体粗细 */
+	    color: white; /* 字体颜色 */
+	    background-color: #007BFA; /* 背景颜色 */
+	    border: none; /* 边框 */
+	    border-radius: 5px; /* 边框圆角 */
+	    cursor: pointer; /* 鼠标指针 */
+	    transition: background-color 0.3s ease; /* 背景颜色过渡效果 */
+	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+	    text-transform: uppercase; /* 字母大写 */
+	    letter-spacing: 1px; /* 字母间距 */
+	    width: 60px;
+	    height: 30px;
+	    right:0;
+	    top: 50%; /* 垂直居中对齐 */
+       
+    }
+	.small-button:hover {
+	    background-color: #0056b3; /* 背景颜色在悬停时变更 */
+	}
+	
+	/* 聚焦状态 */
+	.small-button:focus {
+	    outline: none; /* 去掉默认的聚焦边框 */
+	    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* 自定义聚焦阴影 */
+	}
+	
+	/* 活动状态 */
+	.small-button:active {
+	    background-color: #004494; /* 背景颜色在按下时变更 */
+	}
+	.custom-button {
+	    /* 基本样式 */
+	    padding: 10px 20px; /* 内边距 */
+	    font-size: 16px; /* 字体大小 */
+	    font-weight: bold; /* 字体粗细 */
+	    color: white; /* 字体颜色 */
+	    background-color: #007BFA; /* 背景颜色 */
+	    border: none; /* 边框 */
+	    border-radius: 5px; /* 边框圆角 */
+	    cursor: pointer; /* 鼠标指针 */
+	    transition: background-color 0.3s ease; /* 背景颜色过渡效果 */
+	
+	    /* 自定义样式 */
+	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+	    text-transform: uppercase; /* 字母大写 */
+	    letter-spacing: 1px; /* 字母间距 */
+	}
+
+	/* 悬停状态 */
+	.custom-button:hover {
+	    background-color: #0056b3; /* 背景颜色在悬停时变更 */
+	}
+	
+	/* 聚焦状态 */
+	.custom-button:focus {
+	    outline: none; /* 去掉默认的聚焦边框 */
+	    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* 自定义聚焦阴影 */
+	}
+	
+	/* 活动状态 */
+	.custom-button:active {
+	    background-color: #004494; /* 背景颜色在按下时变更 */
+	}
+	
+    .password-input {
+        width: 100px;
+        padding-right: 30px; /* 为图标留出空间 */
+    }
+    .toggle-icon {
+    	width: 30px;
+        position: absolute;
+        right: 455px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+	
+

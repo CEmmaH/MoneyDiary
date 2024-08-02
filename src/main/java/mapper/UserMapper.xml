@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "../mybatis-3-mapper.dtd">
+ <!-- 首先解析namespace：命名空间，此属性通常用来映射Dao（Mapper）层接口 -->
+<mapper namespace="mapper.UserMapper">
+	<!-- id: 对应Dao层(UserMapper.java)接口方法名，parametertype:指定输入参数类型 -->
+	<!-- useGeneratedKeys="true"把新增加的主键赋值到自己定义的keyProperty（id）中 -->
+	<select id="queryUserByName" parameterType="String" resultType="entity.User">
+		<!-- Write the SQL here -->
+		<!-- #{userName} 接收传入的值，名字最好与mapper层接口方法参数一致 -->
+		select * from user where username = #{userName};
+	</select>
+	<insert id="insertUser" parameterType="entity.User" useGeneratedKeys="true" keyProperty="id">
+		insert into user (username, firstname, lastname, email, hashed_password) values(#{userName},#{firstName},#{lastName},#{email},#{hashed_password});
+	</insert>
+	<!-- if there are more than one parameter, use parameterType="map" -->
+	<!-- public User checkUserExist(@Param("userName")String userName, @Param("email")String email); -->
+	<select id="checkUserExist" parameterType="map" resultType="entity.User">
+		select * from user where username = #{userName} or email = #{email};	
+	</select>
+</mapper>
+
