@@ -6,19 +6,19 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Insert title here</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <%
 	
     if (session == null) {
-    	response.sendRedirect("login.jsp"); // Session无效，重定向到登录页面
-        return; // 确保后续代码不执行
+    	response.sendRedirect("login.jsp"); // Session is invalid, redirecting to login page
+        return; 
     }
-    // 获取 userId 参数
+    // get UserId
     User user = (User)session.getAttribute("user");
     if (user == null || user.getId()==null) {
-    	response.sendRedirect("login.jsp"); // Session无效，重定向到登录页面
-        return; // 确保后续代码不执行
+    	response.sendRedirect("login.jsp"); // Session is invalid, redirecting to login page
+        return;
      }
 %>
 <body>
@@ -189,11 +189,10 @@
         });
     });
   $(document).ready(function() {
-      // 获取当前日期
       var today = new Date();
-      // 格式化日期为 yyyy-mm-dd
+      // Format the date: yyyy-mm-dd
       var formattedDate = today.toISOString().split('T')[0];
-      // 设置 input[type="date"] 的默认值
+      // set default input[type="date"] 
       $('.dateInput').val(formattedDate);
   });
   function openAddCategoryWindow(id) {

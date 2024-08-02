@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
 	</form>
 </body>
 <script type="text/javascript" src="js/jquery-3.7.1.js"></script>
-<script src="Script.js"></script>
+<script src="js/Script.js"></script>
 <script>
 	$("#add").click(function(){
 		var name = $("#name").val();

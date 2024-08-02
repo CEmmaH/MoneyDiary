@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 <style>
 
     .toggle-icon {
@@ -66,7 +66,7 @@
 <script type="text/javascript" src="js/jquery-3.7.1.js"></script>
 <!-- Include crypto-js from a CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-<script src="Script.js"></script>
+<script src="js/Script.js"></script>
 <script type="text/javascript">
 	$("#submitBtn").click(function(){
 		var username = $("#userName").val();
@@ -127,10 +127,10 @@
             var visibilityImg = $('#visibilityImg');
             if (passwordField.attr('type') === 'password') {
                 passwordField.attr('type', 'text');
-                visibilityImg.attr('src', 'image/invisible.png'); // 图标切换为不可见
+                visibilityImg.attr('src', 'image/invisible.png'); 
             } else {
                 passwordField.attr('type', 'password');
-                visibilityImg.attr('src', 'image/visible.png'); // 图标切换为可见
+                visibilityImg.attr('src', 'image/visible.png'); 
             }
         });
     });

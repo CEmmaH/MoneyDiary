@@ -5,17 +5,17 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>MoneyDiary Login</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <h2>Log In</h2>
 <div style="text-align: center">
-	<!-- action="/login" 为绝对路径，action="login"为相对路径-->
+	<!-- action="/login" is a absolute path，action="login" is a relative path-->
 	<form action="login" method="post" id="loginForm">
 		<table class="table">
 			<tr>
 				<td class="td">User Name: </td>
-				<!--${messageModel.object.userName} 中的userName 需要与User对象中一致 -->
+				<!--${messageModel.object.userName} userName need to mathc User Object -->
 				<td class="td"><input type="text" name="username" id="username" value="${messageModel.object.userName}"></td>
 			</tr>
 			<tr>
@@ -24,7 +24,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="td-button">
-					<!-- ${messageModel.message} 需要与getter对应，变量为msg，getMessage（） 需要用message-->
+					<!-- ${messageModel.message} match getter，msg，getMessage（） here use message-->
 					<span id="msg" style="font-size: 12px; color:red">${messageModel.message}</span><br>
 					<button type="button" id="loginBtn">Login</button>
 					<button type="button" id="register">Sign Up</button>
@@ -36,14 +36,15 @@
 </body>
 <%--import jQuery --%>
 <script type="text/javascript" src="js/jquery-3.7.1.js"></script>
-<script src="Script.js"></script>
+<script src="js/Script.js"></script>
 <script type="text/javascript">
-	/**
-	 *  1. 给登录按钮绑定点击事件（通过id选择器绑定）
-	 	2. 获取用户用户名和密码的值
-	 	3. 判断姓名是否为空： 如果为空提示用户（span标签赋值）， 并return	 		
-	 	4. 判断密码是否为空：
-	 	5. 不为空，手动提交表单
+
+	/*
+		1. Bind a click event to the login button (using the ID selector).
+		2. Get the values of the username and password.
+		3. Check if the username is empty: If it is, prompt the user (set the value of a span element) and return.
+		4. Check if the password is empty.
+		5. If neither is empty, manually submit the form.
 	*/
 	$("#loginBtn").click(function(){
 		//through id to get the values
