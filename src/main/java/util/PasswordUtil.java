@@ -4,7 +4,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
-
+/**
+ * Password Utility class
+ * @version 1.0
+ * @author CEmmH
+ */
 public class PasswordUtil {
     // Generate a random salt
     public static byte[] generateSalt() {

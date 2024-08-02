@@ -16,18 +16,19 @@ import util.StringUtil;
  */
 public class UserService {
 	/**
-	 * 1. 参数的非空判断
-			如果参数为空： 将状态码，提示信息，回显数据设置到消息模型对象中，返回消息模型对象；
-		2. 调用Mapper层的查询方法，通过用户名查询用户对象
-		3. 判断用户对象是否为空
-			如果参数为空： 将状态码，提示信息，回显数据设置到消息模型对象中，返回消息模型对象；
-		4. 判断密码是否一致
-			如果不等，将状态码，提示信息，回显数据设置到消息模型对象中，返回消息模型对象；
-		5. 将成功状态，提示信息，用户对象设置消息模型对象，并return
+	 * 1. Check for null parameters
+	 *    If the parameter is null: Set the status code, message, and echo data in the message model object, and return the message model object.
+	 * 2. Call the Mapper layer's query method to retrieve the user object by username.
+	 * 3. Check if the user object is null
+	 *    If the user object is null: Set the status code, message, and echo data in the message model object, and return the message model object.
+	 * 4. Check if the password matches
+	 *    If it does not match, set the status code, message, and echo data in the message model object, and return the message model object.
+	 * 5. Set the success status, message, and user object in the message model object, and return it.
 	 * @param userName
 	 * @param password
 	 * @return
 	 */
+
 	public MessageModel userLogin(String userName, String password) {
 		MessageModel messageModel  = new MessageModel();
 		//回显数据
@@ -57,7 +58,7 @@ public class UserService {
 			messageModel.setMessage("The password is not correct.");
 			return messageModel;	
 		}
-		//登录成功，
+		//success，
 		messageModel.setCode(1);
 		messageModel.setObject(user);
 		return messageModel;

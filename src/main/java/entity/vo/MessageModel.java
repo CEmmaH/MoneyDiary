@@ -1,17 +1,18 @@
 package entity.vo;
 
 /**
- * 消息模型对象，数据响应
- * 		状态码： 1=成功； 0=失败
- * 		提示信息： 字符串
- * 		回显数据： Object
+ * Message model object for data response
+ *     Status code: 1 = Success; 0 = Failure
+ *     Message: String
+ *     Echo data: Object
  * @version 1.0
  * @author CEmmH
  */
+
 public class MessageModel {
 	private Integer code = 1; //1  = success; 0 = failed
 	private String msg = "Success!";
-	private Object object; //回显对象（基本数据类型，字符串，list, map etc.）
+	private Object object; //Echo object (basic data types, strings, lists, maps, etc.)
 	
 	public void setCode(Integer code) {
 		this.code = code;

@@ -3,9 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "../mybatis-3-mapper.dtd">
  <!-- 首先解析namespace：命名空间，此属性通常用来映射Dao（Mapper）层接口 -->
+ <!-- First, parse the namespace: the namespace attribute is typically used to map the Dao (Mapper) layer interface -->
 <mapper namespace="mapper.UserMapper">
 	<!-- id: 对应Dao层(UserMapper.java)接口方法名，parametertype:指定输入参数类型 -->
-	<!-- useGeneratedKeys="true"把新增加的主键赋值到自己定义的keyProperty（id）中 -->
+	<!-- id: Corresponds to the method name in the Dao layer (UserMapper.java) interface, parameterType: Specifies the type of the input parameter -->
+	<!-- useGeneratedKeys="true"Assign the newly added primary key value to the user-defined keyProperty (id)-->
 	<select id="queryUserByName" parameterType="String" resultType="entity.User">
 		<!-- Write the SQL here -->
 		<!-- #{userName} 接收传入的值，名字最好与mapper层接口方法参数一致 -->

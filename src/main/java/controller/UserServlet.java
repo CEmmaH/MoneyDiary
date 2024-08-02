@@ -13,29 +13,28 @@ import service.UserService;
 @SuppressWarnings("serial")
 @WebServlet("/login")
 public class UserServlet extends HttpServlet{
-	//实例化UserService
 	private UserService userService = new UserService();
 	/**
 	 * 
-	 * 	controller层
-		1.接收客户端请求（调用service层，返回结果）
-		2.调用service层的方法，返回消息模型对象；
-		3.判断消息模型状态码
-			如果为失败
-				将消息模型对象设置到request作用域，请求转发跳转会登录页面login.jsp
-			如果成功
-				将消息模型对象中的用户信息设置到session作用域，重定向跳转到首页index.jsp
-		4.请求转发跳转到登录页面
+	 * Controller layer
+	 * 1. Receives client requests (calls the service layer and returns results)
+	 * 2. Calls methods in the service layer and returns a message model object
+	 * 3. Checks the status code of the message model
+	 *    If it indicates failure
+	 *       Sets the message model object into the request scope and forwards the request to the login page (login.jsp)
+	 *    If successful
+	 *       Sets the user information from the message model object into the session scope and redirects to the homepage (index.jsp)
+	 * 4. Forwards the request to the login page
 	 */
+
 	protected void service(HttpServletRequest req, HttpServletResponse resp)throws ServletException,IOException{
 		// receive client's request
 		String userName = req.getParameter("username");
 		String password = req.getParameter("password");
 //		String hashedPassword = PasswordUtil.hashPassword(password, PasswordUtil.generateSalt());
-		//调用service层方法，返回消息模型对象
+
 		MessageModel messageModel = userService.userLogin(userName,password);
 			
-		//判断消息模型状态码
 		if(messageModel.getCode() ==1){ // success
 			req.getSession().setAttribute("user", messageModel.getObject());
 			resp.sendRedirect("index.jsp");

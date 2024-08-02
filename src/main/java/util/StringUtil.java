@@ -1,7 +1,7 @@
 package util;
 
 /**
- * 字符串工具类
+ * String utility class
  * @version 1.0
  * @author CEmmH
  */
