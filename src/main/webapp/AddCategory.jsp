@@ -4,9 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" href="css/style.css">
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/jquery-3.7.1.js"></script>
+	<script src="js/Script.js" defer></script>
 </head>
 
 <body>
@@ -19,23 +21,11 @@
 			<tr>				
 				<td colspan="2" class="td-button">
 					<span id="msg" style="font-size: 12px; color:red">${messageModel.message}</span><br>
-					<button type="button" class="custom-button" id="add">Add</button>
+					<button type="button" class="custom-button" id="addECategory">Add</button>
 				</td>
 			</tr>
 		</table>
 	</form>
 </body>
-<script type="text/javascript" src="js/jquery-3.7.1.js"></script>
-<script src="js/Script.js"></script>
-<script>
-	$("#add").click(function(){
-		var name = $("#name").val();
-		if(isEmpty(name)){
-			$("#msg").html("Please enter Category Name! ");
-			return;
-		}
-		$("#addForm").submit();
-	});
-	
-</script>
+
 </html>

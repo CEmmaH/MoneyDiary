@@ -1,5 +1,7 @@
 package mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import entity.Category;
@@ -10,7 +12,7 @@ public interface CategoryMapper {
 	//get query according the category name
 	public Category queryCategoryByName(@Param("name")String name,@Param("userid")int userid);
 	//get all query from category
-	public Category[] queryCategory();
+	public List<Category> queryCategoryByUserId(@Param("userid")int userid);
 	//according category name update category
 	public void updateCategory(String oldName, String newName);
 	//delete category bye name

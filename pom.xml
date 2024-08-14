@@ -5,7 +5,7 @@
 	<groupId>com.emma</groupId>
 	<artifactId>MoneyDiary</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
     
     <dependencies>
     	<dependency>
@@ -18,6 +18,37 @@
 		    <artifactId>log4j-api</artifactId>
 		    <version>2.17.2</version>
 		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+
+		    <!-- JSTL Core Library -->
+	    <dependency>
+	        <groupId>org.apache.taglibs</groupId>
+	        <artifactId>taglibs-standard-impl</artifactId>
+	        <version>1.2.5</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.taglibs</groupId>
+	        <artifactId>taglibs-standard-spec</artifactId>
+	        <version>1.2.5</version>
+	    </dependency>
+		    <!-- JSTL 2.0 Core Library -->
+		<dependency>
+		    <groupId>jakarta.servlet.jsp.jstl</groupId>
+		    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		    <version>2.0.0</version>
+		</dependency>
+
+
     </dependencies>
     <build>
         <plugins>

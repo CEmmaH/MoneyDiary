@@ -1,19 +1,24 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import entity.Category;
+import entity.User;
 import entity.vo.MessageModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.CategoryService;
 import service.UserService;
 
 @SuppressWarnings("serial")
 @WebServlet("/login")
 public class UserServlet extends HttpServlet{
 	private UserService userService = new UserService();
+	CategoryService categoryService = new CategoryService();
 	/**
 	 * 
 	 * Controller layer
@@ -36,7 +41,11 @@ public class UserServlet extends HttpServlet{
 		MessageModel messageModel = userService.userLogin(userName,password);
 			
 		if(messageModel.getCode() ==1){ // success
-			req.getSession().setAttribute("user", messageModel.getObject());
+			User user = (User)messageModel.getObject();
+			List<Category> categories = categoryService.getCategoriesByUserId(user.getId());
+
+			req.getSession().setAttribute("user", user);
+			req.getSession().setAttribute("eCategory", categories);
 			resp.sendRedirect("index.jsp");
 		}else { //failed
 			BaseServlet.forwardToUrl(req, resp, messageModel, "login.jsp");

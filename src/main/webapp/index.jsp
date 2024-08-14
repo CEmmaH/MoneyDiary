@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="entity.User"%>
+<%@ page import="java.util.List" %>
+<%@ page import="entity.Category" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="css/style.css">
+
 </head>
 <%
 	
@@ -20,6 +23,9 @@
     	response.sendRedirect("login.jsp"); // Session is invalid, redirecting to login page
         return;
      }
+    
+    List<Category> categories = (List<Category>)session.getAttribute("eCategory");
+
 %>
 <body>
 	<header>
@@ -52,16 +58,13 @@
        	  	<td class="td">Category</td>
        	  	<td class="td">
        	  		<select id="category" name="category_select">
-			        <option value="groceries">Groceries</option>
-			        <option value="utilities">Utilities</option>
-			        <option value="transportation">Transportation</option>
-			        <option value="entertainment">Entertainment</option>
-			        <option value="healthcare">Healthcare</option>
-			        <option value="education">Education</option>
-			        <option value="dining">Dining</option>
-			        <option value="clothing">Clothing</option>
-			        <option value="housing">Housing</option>
-			        <option value="miscellaneous">Miscellaneous</option>
+       	  			<option value="">Choose a Category</option>
+       	  			<%
+       	  				if(categories!=null && categories.size()>0){
+       	  					for(int i = 0; i < categories.size(); i++){
+       	  			%>
+       	  				<option value="<%=categories.get(i).getId()%>"><%= categories.get(i).getName() %></option>
+       	  			<% }}%>
 			    </select>
        	  	</td>
        	  	<td class="td">Account</td>
@@ -132,11 +135,26 @@
    	  			</th>
    	  		</tr>
    	  		<tr>
-   	  			<td class="td2">1</td>
-   	  			<td class="td1">Diner</td>
-   	  			<td class="td2 img"  style="text-align: center"><img src="image/edit.png" alt="Delete"></td>
-   	  			<td class="td2 img" style="text-align: center"><img src="image/delete.png" alt="Delete"></td>
+	   	  		<td class="td2"></td>
+	   	  		<td class="td1" style="text-align: center">Name</td>
+	   	  		<td class="td2 img"  style="text-align: center"></td>
+	   	  		<td class="td2 img" style="text-align: center"></td>
    	  		</tr>
+   	  		<%
+   	  			if(categories!=null && categories.size()>0){
+   	  				for (int i = 0; i < categories.size(); i++){
+   	  		%>
+   	  			<tr>
+	   	  			<td class="td2"><%=i+1 %></td>
+	   	  			<td class="td1"><%= categories.get(i).getName()%></td>
+	   	  			<td class="td2 img"  style="text-align: center"><img src="image/edit.png" alt="edit"></td>
+	   	  			<td class="td2 img" style="text-align: center"><img id="delECategory" src="image/delete.png" alt="Delete" onclick="deleteCategory()"></td>
+   	  			</tr>
+   	  		<%
+   	  				}
+   	  			}
+   	  		%>
+   	  		
    	  	</table>
 
    	  </div>
@@ -152,7 +170,7 @@
  			<tr>
    	  			<td class="td2">1</td>
    	  			<td class="td1">Diner</td>
-   	  			<td class="td2 img"  style="text-align: center"><img src="image/edit.png" alt="Delete"></td>
+   	  			<td class="td2 img"  style="text-align: center"><img src="image/edit.png" alt="edit"></td>
    	  			<td class="td2 img" style="text-align: center"><img src="image/delete.png" alt="Delete"></td>
    	  		</tr>  	  		
    	  	</table>
@@ -160,25 +178,14 @@
    	  </div>
    </div>        
 </div>
+<script src="js/Script.js"></script>
 </body>
 <script type="text/javascript" src="js/jquery-3.7.1.js"></script>
+
 <script>
-/**
- *  // achieve tab change in javascript
 
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active class from all tabs and tab contents
-            document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
-
-            // Add active class to the clicked tab and corresponding tab content
-            tab.classList.add('active');
-            document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
-        });
-    });
-  */
 	// achieve tab change in jquery
-    $(document).ready(function(){
+   $(document).ready(function(){
         $('.tab').click(function(){
             // Remove active class from all tabs and tab contents
             $('.tab, .tab-content').removeClass('active');
@@ -195,15 +202,9 @@
       // set default input[type="date"] 
       $('.dateInput').val(formattedDate);
   });
-  function openAddCategoryWindow(id) {
-      const newWindow = window.open('AddCategory.jsp', '_blank', 'width=600,height=400');
-      // Set up a listener to refresh the main window when the new window is closed
-      const checkWindowClosed = setInterval(function() {
-          if (newWindow.closed) {
-              clearInterval(checkWindowClosed);
-              location.reload(); // Refresh the main window
-          }
-      }, 1000);
-  }
+
+  $(document).ready(function(){
+	
+  });
 </script>
 </html>

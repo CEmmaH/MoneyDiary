@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +10,16 @@
 </head>
 <body>
 <h2>Log In</h2>
+
 <div style="text-align: center">
 	<!-- action="/login" is a absolute path，action="login" is a relative path-->
 	<form action="login" method="post" id="loginForm">
 		<table class="table">
 			<tr>
-				<td class="td">User Name: </td>
+				<td class="td">User Name: </td>			
 				<!--${messageModel.object.userName} userName need to mathc User Object -->
 				<td class="td"><input type="text" name="username" id="username" value="${messageModel.object.userName}"></td>
+				
 			</tr>
 			<tr>
 				<td class="td">Password : </td>

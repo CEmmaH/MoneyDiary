@@ -4,6 +4,9 @@
 	<select id="queryCategoryByName" parameterType="map" resultType="entity.Category">
 		select * from category where name = #{name} and user_id = #{userid};
 	</select>
+	<select id="queryCategoryByUserId" parameterType="int" resultType="entity.Category">
+		select * from category where user_id = #{userid};
+	</select>
 
 	<insert id="insertCategory" parameterType="entity.Category" useGeneratedKeys="true" keyProperty="id">
 		insert into category(name,type,user_id) values(#{name},#{type},#{userId});

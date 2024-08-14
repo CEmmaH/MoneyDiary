@@ -82,6 +82,12 @@
 	  padding: 8px;
 	  width: 150px;
 	}
+	.td-title{
+	  border: 1px solid #dddddd;
+	  text-align: left;
+	  padding: 8px;
+	  width: 100%;
+	}
 	.td1{
 	  border: 1px solid #dddddd;
 	  text-align: left;
@@ -99,6 +105,8 @@
       height: auto; /* 保持图片比例 */
       cursor: pointer; /* 鼠标指针样式 */
     }	
+
+	
 	button {
       margin-top: 20px;
       width: 150px; 
