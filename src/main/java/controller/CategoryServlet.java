@@ -22,8 +22,10 @@ import util.StringUtil;
 @SuppressWarnings("serial")
 @WebServlet("/addcategory")
 public class CategoryServlet extends HttpServlet {
+	
 	private static final Logger logger = LogManager.getLogger(RegisterServlet.class);
 	CategoryService categoryService = new CategoryService();
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String name = request.getParameter("name");
 		HttpSession session = request.getSession(false);
@@ -69,7 +71,7 @@ public class CategoryServlet extends HttpServlet {
 	 */
 	public List<Category> getCategoryList(int userid) {
 		List<Category> categories = new ArrayList<>();
-		categories = categoryService.getCategoriesByUserId(userid);
+		categories = categoryService.getECategoriesByUserId(userid);
 		return categories;
 	}
 }

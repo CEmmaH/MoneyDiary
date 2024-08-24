@@ -9,7 +9,8 @@
 	<meta charset="ISO-8859-1">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="css/style.css">
-
+	<script type="text/javascript" src="js/jquery-3.7.1.js"></script>
+	<script src="js/Script.js" defer></script>
 </head>
 <%
 	
@@ -39,8 +40,8 @@
         <div class="tab" data-tab="tab_Invest">Investment</div>
         <div class="tab" data-tab="tab_Expense_Report">Expenses Report</div>
         <div class="tab" data-tab="tab_Income_Report">Income Report</div>
-        <div class="tab" data-tab="tab_Invest_Report">Investment Report</div>
-        <div class="tab" data-tab="tab_Manage">Manage Account</div>
+        <div class="tab" data-tab="tab_Update_passwd">Update Password</div>
+        <div class="tab" data-tab="tab_Manage">Manage Category</div>
     </div>
 
     <div id="tab_Expense_Trans" class="tab-content active">
@@ -85,7 +86,9 @@
        	  	<td colspan="3" class="td"><textarea id="description"></textarea></td>
        	  </tr>
        	  <tr>
-       	  	<td colspan="4" class="td-button"><button type="button" class="custom-button" id="tab1_submit">submit</button></td>
+       	  	<td colspan="4" class="td-button">
+       	  	  <button type="button" class="custom-button" id="tab1_submit">submit</button>
+       	  	</td>
        	  </tr>
        </table>
     </div>
@@ -122,7 +125,32 @@
    <div id="tab_Income_Report" class="tab-content">
 
     </div>
-   <div id="tab_Invest_Report" class="tab-content">
+   <div id="tab_Update_passwd" class="tab-content">
+      <form action="updatePasswordServlet" method="post" id="updatePasswordForm">
+	   	  <table class="table-manage">
+	   	  	 <tr>
+	   	  	    <th colspan="2">Update Password</th>
+	   	  	 </tr>
+	   	  	  <tr>
+	   	  	  	<td class="td2">Old Password: </td>
+	   	  	  	<td class="td2"><input type="password" id="oldPassword" name="oldPassword"></td>
+	   	  	  </tr>
+	   	  	  <tr>
+	   	  	    <td class="td2">New Password: </td>
+	   	  	    <td class="td2"><input type="password" id="newPassword" name="newPassword"></td>
+	   	  	  </tr>
+	   	  	  <tr>
+	   	  	    <td class="td2">Confirm New Password: </td>
+	   	  	    <td class="td2"><input type="password" id="confirmPassword" name="confirmPassword"></td>
+	   	  	  </tr>
+	   	  	  <tr>
+	   	  	   	 <td colspan="2" class="td-button">
+	   	  	   	 	<span id="msg" style="font-size: 12px; color:red">${messageModel.message}</span><br>
+	   	  	   	    <button class="custom-button" id="updatePasswd" type="button">Submit</button>
+	   	  	   	 </td>
+	   	  	  </tr>
+	   	  </table>
+   	  </form>
     </div>
    <div id="tab_Manage" class="tab-content" >
    	  <div class="table-container">
@@ -148,7 +176,9 @@
 	   	  			<td class="td2"><%=i+1 %></td>
 	   	  			<td class="td1"><%= categories.get(i).getName()%></td>
 	   	  			<td class="td2 img"  style="text-align: center"><img src="image/edit.png" alt="edit"></td>
-	   	  			<td class="td2 img" style="text-align: center"><img id="delECategory" src="image/delete.png" alt="Delete" onclick="deleteCategory()"></td>
+	   	  			<td class="td2 img" style="text-align: center">
+	   	  				<img id="delECategory" data-value="<%=categories.get(i).getId()%>" src="image/delete.png" alt="Delete" data-action="deleteECategory">
+	   	  			</td>
    	  			</tr>
    	  		<%
    	  				}
@@ -171,40 +201,27 @@
    	  			<td class="td2">1</td>
    	  			<td class="td1">Diner</td>
    	  			<td class="td2 img"  style="text-align: center"><img src="image/edit.png" alt="edit"></td>
-   	  			<td class="td2 img" style="text-align: center"><img src="image/delete.png" alt="Delete"></td>
+   	  			<td class="td2 img" style="text-align: center"><img src="image/delete.png" alt="Delete" data-action="" style="cursor:pointer;"></td>
    	  		</tr>  	  		
    	  	</table>
    	   </form>
    	  </div>
    </div>        
 </div>
-<script src="js/Script.js"></script>
 </body>
-<script type="text/javascript" src="js/jquery-3.7.1.js"></script>
-
 <script>
+	$(document).ready(function() {		
+	    // Get the active tab from the request attribute
+	    var activeTab = '${activeTab}';
+	    // Check if activeTab is set
+	    if (!activeTab) {
+			var activeTab = 'tab_Expense_Trans';
+	    }
+	    $('.tab, .tab-content').removeClass('active');
 
-	// achieve tab change in jquery
-   $(document).ready(function(){
-        $('.tab').click(function(){
-            // Remove active class from all tabs and tab contents
-            $('.tab, .tab-content').removeClass('active');
-
-            // Add active class to the clicked tab and corresponding tab content
-            $(this).addClass('active');
-            $('#' + $(this).data('tab')).addClass('active');
-        });
-    });
-  $(document).ready(function() {
-      var today = new Date();
-      // Format the date: yyyy-mm-dd
-      var formattedDate = today.toISOString().split('T')[0];
-      // set default input[type="date"] 
-      $('.dateInput').val(formattedDate);
-  });
-
-  $(document).ready(function(){
-	
-  });
+	    // Activate the corresponding tab link and content 
+	    $('a[href="#' + activeTab + '"]').addClass('active'); // Activate tab link
+	    $('#' + activeTab).addClass('active'); // Activate tab content
+	});
 </script>
 </html>

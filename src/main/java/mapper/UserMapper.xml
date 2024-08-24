@@ -21,5 +21,11 @@
 	<select id="checkUserExist" parameterType="map" resultType="entity.User">
 		select * from user where username = #{userName} or email = #{email};	
 	</select>
+	<select id="queryUserById" parameterType="int" resultType="entity.User">
+		select * from user where id = #{id};
+	</select>
+	<update id="updatePasswordByUserId" parameterType="map">
+		update user set hashed_password = #{newPassword} where id = #{id};
+	</update>
 </mapper>
 

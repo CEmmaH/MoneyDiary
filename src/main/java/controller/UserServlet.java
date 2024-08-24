@@ -42,7 +42,7 @@ public class UserServlet extends HttpServlet{
 			
 		if(messageModel.getCode() ==1){ // success
 			User user = (User)messageModel.getObject();
-			List<Category> categories = categoryService.getCategoriesByUserId(user.getId());
+			List<Category> categories = categoryService.getECategoriesByUserId(user.getId());
 
 			req.getSession().setAttribute("user", user);
 			req.getSession().setAttribute("eCategory", categories);

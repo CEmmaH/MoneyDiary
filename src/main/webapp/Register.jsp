@@ -109,15 +109,6 @@
 			alert("The two passwords much match!");
 			return;
 		}
-//		var hashedPassword = CryptoJS.SHA256(password).toString();
-
-        // Create a new form data object to send the hashed password
-/*        
-        var formData = {
-            password: hashedPassword;
-            alert(hashedPassword);
-        };
-*/
 		$("#registerForm").submit();
 	});
 	

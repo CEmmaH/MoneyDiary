@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "../mybatis-3-mapper.dtd">
 <mapper namespace="mapper.CategoryMapper">
-	<select id="queryCategoryByName" parameterType="map" resultType="entity.Category">
+	<select id="queryECategoryByName" parameterType="map" resultType="entity.Category">
 		select * from category where name = #{name} and user_id = #{userid};
 	</select>
-	<select id="queryCategoryByUserId" parameterType="int" resultType="entity.Category">
+	<select id="queryECategoryByUserId" parameterType="int" resultType="entity.Category">
 		select * from category where user_id = #{userid};
 	</select>
 
-	<insert id="insertCategory" parameterType="entity.Category" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertECategory" parameterType="entity.Category" useGeneratedKeys="true" keyProperty="id">
 		insert into category(name,type,user_id) values(#{name},#{type},#{userId});
 	</insert>
+	<delete id="deleteECategoryById" parameterType="int">
+		delete from category where id = #{id};
+	</delete>
 </mapper>

@@ -64,6 +64,12 @@ public class UserService {
 		return messageModel;
 		
 	}
+	/**
+	 * According user name and email check if this user name or email already been used
+	 * @param userName
+	 * @param email
+	 * @return
+	 */
 	public boolean checkUserExist(String userName, String email) {
 		boolean userExist = true;
 		SqlSession sqlSession = GetSqlSession.createSqlSession();
@@ -75,6 +81,11 @@ public class UserService {
 		return userExist;
 		
 	}
+	/**
+	 * Register a new user
+	 * @param user
+	 * @return
+	 */
 	public MessageModel userRegister(User user) {
 		MessageModel messageModel = new MessageModel();
 		messageModel.setObject(user);
@@ -91,5 +102,33 @@ public class UserService {
 			return messageModel;
 		}
 		
+	}
+	
+	public MessageModel updateUserPassword(int userid, String oldPassword, String newPassword) {
+		MessageModel messageModel = new MessageModel();
+		User user = new User();
+		if(oldPassword == null || newPassword == null) {
+			messageModel.setCode(0);
+			messageModel.setMessage("Old password or new password can not be empty.");
+			return messageModel;
+		}else {
+			SqlSession sqlSession = GetSqlSession.createSqlSession();
+			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+			user = userMapper.queryUserById(userid);
+			messageModel.setObject(user);
+			boolean match = PasswordUtil.verifyPassword(oldPassword, user.getHashedPassword());
+			if(match) {
+				String hashedPassword = PasswordUtil.hashPassword(newPassword, PasswordUtil.generateSalt());
+				userMapper.updatePasswordByUserId(userid, hashedPassword);
+				sqlSession.commit();
+				messageModel.setCode(1);
+				messageModel.setMessage("Password has been updated.");
+				System.out.println("============ update ");
+			}else {
+				messageModel.setCode(0);
+				messageModel.setMessage("The old password is not correct.");
+			}
+			return messageModel;
+		}
 	}
 }
