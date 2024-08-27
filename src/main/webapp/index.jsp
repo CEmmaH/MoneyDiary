@@ -3,6 +3,7 @@
 <%@ page import="entity.User"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Category" %>
+<%@ page import="entity.Account" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@
      }
     
     List<Category> categories = (List<Category>)session.getAttribute("eCategory");
-
+	List<Account> accountList = (List<Account>)session.getAttribute("accountList");
 %>
 <body>
 	<header>
@@ -37,28 +38,29 @@
     <div class="tabs">
         <div class="tab active" data-tab="tab_Expense_Trans">Expenses Transaction</div>
         <div class="tab" data-tab="tab_Income_Trans">Income Transaction</div>
-        <div class="tab" data-tab="tab_Invest">Investment</div>
         <div class="tab" data-tab="tab_Expense_Report">Expenses Report</div>
         <div class="tab" data-tab="tab_Income_Report">Income Report</div>
         <div class="tab" data-tab="tab_Update_passwd">Update Password</div>
         <div class="tab" data-tab="tab_Manage">Manage Category</div>
+        <div class="tab" data-tab="tab_SignOut" data-tab-name="tab_SignOut">Sign Out</div>
     </div>
 
     <div id="tab_Expense_Trans" class="tab-content active">
+    <form action="addExpenseServlet" method="post" id="addExpenseForm">
        <table class="table">
        	  <tr>
        		<th colspan ="4">Expenses Transaction</th>
        	  </tr>
        	  <tr>
        	  	<td class="td">Name</td>
-       	  	<td class="td"><input id="name" type="text"></td>
+       	  	<td class="td"><input id="name" name="name" type="text"></td>
        	  	<td class="td">Amount</td>
-       	  	<td class="td"><input id="" type="text"></td>
+       	  	<td class="td"><input id="amount" name="amount" type="text"></td>
        	  </tr>
        	  <tr>
        	  	<td class="td">Category</td>
        	  	<td class="td">
-       	  		<select id="category" name="category_select">
+       	  		<select id="category_select" name="category_select">
        	  			<option value="">Choose a Category</option>
        	  			<%
        	  				if(categories!=null && categories.size()>0){
@@ -71,54 +73,62 @@
        	  	<td class="td">Account</td>
        	  	<td class="td">
 			    <select id="account_select" name="account_select">
-			        <option value="cash">Cash</option>
-			        <option value="debit">Debit</option>
-			        <option value="creditcard">Credit Card</option>
+			    	<option value="">Choose an account</option>
+			    	<%
+			    		if(accountList != null && accountList.size()>0){
+			    			for(int i = 0; i < accountList.size(); i++){
+			    	%>
+			    		<option value="<%=accountList.get(i).getId()%>"><%=accountList.get(i).getName() %></option>
+			    	<%			
+			    			}
+			    		}
+			    	%>
 			    </select>
        	  	</td>
        	  </tr>
 		  <tr>
        	  	<td class="td">Date</td>
-       	  	<td colspan="3" class="td"><input class="dateInput" type="date"></td>
+       	  	<td colspan="3" class="td"><input class="dateInput" name="date" type="date"></td>
        	  </tr>
        	  <tr>
        	  	<td class="td">Description</td>
-       	  	<td colspan="3" class="td"><textarea id="description"></textarea></td>
+       	  	<td colspan="3" class="td"><textarea id="description" name="description"></textarea></td>
        	  </tr>
        	  <tr>
        	  	<td colspan="4" class="td-button">
-       	  	  <button type="button" class="custom-button" id="tab1_submit">submit</button>
+       	  	  <button type="button" class="custom-button" id="addExpenseSubmit">submit</button>
        	  	</td>
        	  </tr>
        </table>
+      </form>
     </div>
     <div id="tab_Income_Trans" class="tab-content">
+      <form action="addIncomeServlet" method="post" id="addIncomeForm">
        <table class="table">
        	  <tr>
        		<th colspan ="4">Income Transaction</th>
        	  </tr>
        	  <tr>
        	  	<td class="td">Name</td>
-       	  	<td class="td"><input id="name" type="text"></td>
+       	  	<td class="td"><input id="income_name" name ="income_name" type="text"></td>
        	  	<td class="td">Amount</td>
-       	  	<td class="td"><input id="" type="text"></td>
+       	  	<td class="td"><input id="income_amount" name="income_amount" type="text"></td>
        	  </tr>
 		  <tr>
        	  	<td class="td">Date</td>
-       	  	<td colspan="3" class="td"><input class="dateInput" type="date"></td>
+       	  	<td colspan="3" class="td"><input class="dateInput" id="income_date" name="income_date" type="date"></td>
        	  </tr>
        	  <tr>
        	  	<td class="td">Description</td>
-       	  	<td colspan="3" class="td"><textarea id="description"></textarea></td>
+       	  	<td colspan="3" class="td"><textarea id="income_description" name="income_description"></textarea></td>
        	  </tr>
        	  <tr>
-       	  	<td colspan="4" class="td-button"><button type="button" class="custom-button" id="tab2_submit">submit</button></td>
+       	  	<td colspan="4" class="td-button"><button type="button" class="custom-button" id="income_submit">submit</button></td>
        	  </tr>
        </table> 
+      </form>
     </div>
-    <div id="tab_Invest" class="tab-content">
 
-    </div>
     <div id="tab_Expense_Report" class="tab-content">
 
     </div>
@@ -189,39 +199,41 @@
 
    	  </div>
    	  <div class="table-container">
-   	   <form action="addAccount" method="post" id="addAccount">
    	  	<table  class="table-manage">
    	  		<tr>
    	  			<th colspan="3.5" style="border:none"> Account Management  </th>
    	  			<th style="border:none">
-   	  				<button class="small-button" id="addAccount" type="submit">Add</button> 
+   	  				<button class="small-button" id="addAccount" onclick="openAddAccount()">Add</button> 
    	  			</th>
    	  		</tr>
+   	  		<tr>
+	   	  		<td class="td2"></td>
+	   	  		<td class="td1" style="text-align: center">Name</td>
+	   	  		<td class="td2 img"  style="text-align: center"></td>
+	   	  		<td class="td2 img" style="text-align: center"></td>
+   	  		</tr>   	  		
+   	  		<%
+   	  			if(accountList!=null && accountList.size()>0){
+   	  				for(int i = 0; i < accountList.size(); i++){  	  				
+   	  		%>
  			<tr>
-   	  			<td class="td2">1</td>
-   	  			<td class="td1">Diner</td>
+   	  			<td class="td2"><%=i+1 %></td>
+   	  			<td class="td1"><%=accountList.get(i).getName() %></td>
    	  			<td class="td2 img"  style="text-align: center"><img src="image/edit.png" alt="edit"></td>
-   	  			<td class="td2 img" style="text-align: center"><img src="image/delete.png" alt="Delete" data-action="" style="cursor:pointer;"></td>
-   	  		</tr>  	  		
+   	  			<td class="td2 img" style="text-align: center">
+   	  			<img id="delAccount" src="image/delete.png" alt="Delete" data-value="<%=accountList.get(i).getId() %>" data-action="deleteAccount" style="cursor:pointer;"></td>
+   	  		</tr>  	
+   	  		<%
+   	  				}
+   	  			}
+   	  		%>  		
    	  	</table>
-   	   </form>
    	  </div>
-   </div>        
+   </div>  
+   <div id="tab_SignOut" class="tab-content">
+		
+   </div>      
 </div>
 </body>
-<script>
-	$(document).ready(function() {		
-	    // Get the active tab from the request attribute
-	    var activeTab = '${activeTab}';
-	    // Check if activeTab is set
-	    if (!activeTab) {
-			var activeTab = 'tab_Expense_Trans';
-	    }
-	    $('.tab, .tab-content').removeClass('active');
 
-	    // Activate the corresponding tab link and content 
-	    $('a[href="#' + activeTab + '"]').addClass('active'); // Activate tab link
-	    $('#' + activeTab).addClass('active'); // Activate tab content
-	});
-</script>
 </html>

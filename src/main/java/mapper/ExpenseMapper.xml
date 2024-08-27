@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "../mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ExpenseMapper">
+	<insert id="insertExpense" parameterType="entity.Expense" useGeneratedKeys="true" keyProperty="id">
+		insert into expense(name,amount,date,category_id,account_id,user_id,description) 
+		values(#{name},#{amount},#{date},#{categoryId},#{accountId},#{userId},#{description});
+	</insert>
+	<select id="queryExpenseById" parameterType="int" resultType="entity.Expense">
+		select * from expense where id = #{id};
+	</select>
+	<select id="queryExpenseByDate" parameterType="int" resultType="entity.Account">
+		select * from expense where date = #{date};
+	</select>
+	<select id="queryExpenseByUserId" parameterType="int" resultType="entity.Account">
+		select * from expense where user_id = #{userId};
+	</select>
+	<delete id="deleteExpenseById" parameterType="int">
+		delete from expense where id = #{id};
+	</delete>
+</mapper>

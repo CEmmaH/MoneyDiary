@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "../mybatis-3-mapper.dtd">
+<mapper namespace="mapper.IncomeMapper">
+	<insert id="insertIncome" parameterType="entity.Income" useGeneratedKeys="true" keyProperty="id">
+		insert into Income(name,amount,date,user_id,description) 
+		values(#{name},#{amount},#{date},#{userId},#{description});
+	</insert>
+	<select id="queryIncomeById" parameterType="int" resultType="entity.Income">
+		select * from Income where id = #{id};
+	</select>
+	<select id="queryIncomeByDate" parameterType="int" resultType="entity.Account">
+		select * from Income where date = #{date};
+	</select>
+	<select id="queryIncomeByUserId" parameterType="int" resultType="entity.Account">
+		select * from Income where user_id = #{userId};
+	</select>
+	<delete id="deleteIncomeById" parameterType="int">
+		delete from Income where id = #{id};
+	</delete>
+</mapper>

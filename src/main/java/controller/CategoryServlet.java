@@ -64,14 +64,5 @@ public class CategoryServlet extends HttpServlet {
 
 		}
 	}
-	/**
-	 * To call the service layer method and obtain expense category list.
-	 * @param userid
-	 * @return
-	 */
-	public List<Category> getCategoryList(int userid) {
-		List<Category> categories = new ArrayList<>();
-		categories = categoryService.getECategoriesByUserId(userid);
-		return categories;
-	}
+
 }

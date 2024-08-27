@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
+import entity.Account;
 import entity.Category;
 import entity.User;
 import entity.vo.MessageModel;
@@ -11,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.AccountService;
 import service.CategoryService;
 import service.UserService;
 
@@ -19,6 +21,7 @@ import service.UserService;
 public class UserServlet extends HttpServlet{
 	private UserService userService = new UserService();
 	CategoryService categoryService = new CategoryService();
+	AccountService accountService = new AccountService();
 	/**
 	 * 
 	 * Controller layer
@@ -43,9 +46,11 @@ public class UserServlet extends HttpServlet{
 		if(messageModel.getCode() ==1){ // success
 			User user = (User)messageModel.getObject();
 			List<Category> categories = categoryService.getECategoriesByUserId(user.getId());
+			List<Account> accountList = accountService.getAccountsByUserId(user.getId());
 
 			req.getSession().setAttribute("user", user);
 			req.getSession().setAttribute("eCategory", categories);
+			req.getSession().setAttribute("accountList", accountList);
 			resp.sendRedirect("index.jsp");
 		}else { //failed
 			BaseServlet.forwardToUrl(req, resp, messageModel, "login.jsp");
