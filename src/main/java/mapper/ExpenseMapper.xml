@@ -8,11 +8,31 @@
 	<select id="queryExpenseById" parameterType="int" resultType="entity.Expense">
 		select * from expense where id = #{id};
 	</select>
-	<select id="queryExpenseByDate" parameterType="int" resultType="entity.Account">
+	<select id="queryExpenseByDate" parameterType="int" resultType="entity.Expense">
 		select * from expense where date = #{date};
 	</select>
-	<select id="queryExpenseByUserId" parameterType="int" resultType="entity.Account">
-		select * from expense where user_id = #{userId};
+	<select id="queryExpenseByUserId" parameterType="int" resultType="entity.Expense">
+		select e.id, e.name, e.amount, e.category_id, e.account_id,e.date, e.user_id, e.description, c.name as categoryname, a.name as accountname from expense e
+			inner join category c on c.id=e.category_id
+			inner join account a on a.id = e.account_id
+			where e.user_id = #{userId};
+	</select>
+	<select id="queryExpenseOrderBy" parameterType="map" resultType="entity.Expense">
+		select e.id, e.name, e.amount, e.category_id, e.account_id,e.date, e.user_id, e.description, c.name as categoryname, a.name as accountname from expense e
+			inner join category c on c.id=e.category_id
+			inner join account a on a.id = e.account_id
+			where e.user_id = #{userId}
+			<if test="orderby != null and orderby != ''">
+      			ORDER BY 
+       			<choose>
+           		 <when test="orderby == 'amount'">e.amount</when>
+          		 <when test="orderby == 'date'">e.date</when>
+            	 <when test="orderby == 'name'">e.name</when>
+          		 <when test="orderby == 'category'">e.category_id</when>
+          		 <when test="orderby == 'account'">e.account_id</when>
+                <otherwise>e.id</otherwise> <!-- Default sorting if no match -->
+              </choose>
+           </if>
 	</select>
 	<delete id="deleteExpenseById" parameterType="int">
 		delete from expense where id = #{id};

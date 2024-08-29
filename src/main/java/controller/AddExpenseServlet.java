@@ -60,8 +60,7 @@ public class AddExpenseServlet extends HttpServlet{
 				LocalDate ldate = LocalDate.parse(date);
 				Expense expense = new Expense(name,amountNum,ldate,categoryId,accountId,user.getId(),description);
 				messageModel = expenseService.addExpenseTransaction(expense);
-				BaseServlet.redirectToUrl(request, response, user, messageModel, "index.jsp");
-				
+				BaseServlet.redirectToUrl(request, response, user, messageModel, "index.jsp");				
 			}
 		}		
 	}

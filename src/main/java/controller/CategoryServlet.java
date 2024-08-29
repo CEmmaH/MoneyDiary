@@ -1,12 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import entity.Category;
 import entity.User;
 import entity.vo.MessageModel;
@@ -55,9 +51,7 @@ public class CategoryServlet extends HttpServlet {
 					if(messageModel.getCode()==0) {
 						BaseServlet.forwardToUrl(request, response, messageModel, "AddCategory.jsp");
 					}else {
-						request.getSession().setAttribute("user", user);
-						request.getSession().setAttribute("messageModel", messageModel);
-						response.sendRedirect("AddCategory.jsp");
+						BaseServlet.forwardToUrl(request, response, user, messageModel, "AddCategory.jsp");
 					}
 				}
 			}

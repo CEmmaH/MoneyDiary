@@ -11,13 +11,19 @@
     <Loggers>
         <Root level="info">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
         </Root>
         <Logger name="org.apache.ibatis" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
         </Logger>
-        <Logger name="controller.RegisterServlet" level="debug" additivity="false">
+        <Logger name="controller.RegisterServlet" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
         </Logger>
-
+        <Logger name="org.apache.ibatis.logging" level="DEBUG" additivity="false">
+    		<AppenderRef ref="Console"/>
+   			 <AppenderRef ref="FileAppender"/>
+		</Logger>
     </Loggers>
 </Configuration>

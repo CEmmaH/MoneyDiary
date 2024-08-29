@@ -32,14 +32,14 @@ public class AddAccountServlet extends HttpServlet{
 			logger.error("Invalid session.");
 			messageModel.setCode(0);
 			messageModel.setMessage("Session expired, please log in.");
-			BaseServlet.forwardToUrl(request, response, messageModel, "AddAccount.jsp");
+			BaseServlet.forwardToUrl(request, response, messageModel, "login.jsp");
 		}else {
 			User user = (User)session.getAttribute("user");
 			if(user == null) {
 				logger.error("Invalid session.");
 				messageModel.setCode(0);
 				messageModel.setMessage("Session expired, please log in.");
-				BaseServlet.forwardToUrl(request, response, messageModel, "AddAccount.jsp");
+				BaseServlet.forwardToUrl(request, response, messageModel, "login.jsp");
 			}else {
 				Account account = new Account();
 				account.setName(name);
@@ -48,9 +48,7 @@ public class AddAccountServlet extends HttpServlet{
 				if(messageModel.getCode()==0) {
 					BaseServlet.forwardToUrl(request, response, messageModel, "AddAccount.jsp");
 				}else {
-					request.getSession().setAttribute("user", user);
-					request.getSession().setAttribute("messageModel", messageModel);
-					response.sendRedirect("AddAccount.jsp");
+					BaseServlet.redirectToUrl(request, response, user, messageModel, "AddAccount.jsp");
 				}
 			}
 		}

@@ -19,9 +19,20 @@ public abstract class BaseServlet extends HttpServlet {
         request.setAttribute("messageModel", messageModel);
         request.getRequestDispatcher(url).forward(request, response);
     }
-    protected static void redirectToUrl(HttpServletRequest request, HttpServletResponse response,User user, MessageModel messageModel,String url) throws ServletException, IOException {
+    protected static void forwardToUrl(HttpServletRequest request, HttpServletResponse response,User user, MessageModel messageModel,String url) throws ServletException, IOException {
+    	request.getSession().setAttribute("user", user);
+		request.setAttribute("messageModel", messageModel);
+		request.getRequestDispatcher(url).forward(request, response);
+    }
+    protected static void redirectToUrl(HttpServletRequest request, HttpServletResponse response,User user, MessageModel messageModel,String url) throws ServletException, IOException {    	
     	request.getSession().setAttribute("user", user);
 		request.getSession().setAttribute("messageModel", messageModel);
+		response.sendRedirect(url);
+    }
+    protected static void redirectToUrl(HttpServletRequest request, HttpServletResponse response,User user, MessageModel messageModel,String url,String activeTab) throws ServletException, IOException {    	
+    	request.getSession().setAttribute("user", user);
+		request.getSession().setAttribute("messageModel", messageModel);
+		request.getSession().setAttribute("activeTab", activeTab);
 		response.sendRedirect(url);
     }
 }

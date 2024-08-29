@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="entity.User"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Category" %>
 <%@ page import="entity.Account" %>
+<%@ page import="entity.Expense" %>
+<%@ page import="entity.vo.MessageModel" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +28,6 @@
     	response.sendRedirect("login.jsp"); // Session is invalid, redirecting to login page
         return;
      }
-    
     List<Category> categories = (List<Category>)session.getAttribute("eCategory");
 	List<Account> accountList = (List<Account>)session.getAttribute("accountList");
 %>
@@ -38,14 +40,17 @@
     <div class="tabs">
         <div class="tab active" data-tab="tab_Expense_Trans">Expenses Transaction</div>
         <div class="tab" data-tab="tab_Income_Trans">Income Transaction</div>
-        <div class="tab" data-tab="tab_Expense_Report">Expenses Report</div>
-        <div class="tab" data-tab="tab_Income_Report">Income Report</div>
+
+        <div class="tab" data-tab="tab_Expense_Report" data-tab-name="tab_Expense_Report">
+        	Expenses Report
+        </div>
+
+        <div class="tab" data-tab="tab_Income_Report" data-tab-name="tab_Income_Report">Income Report</div>
         <div class="tab" data-tab="tab_Update_passwd">Update Password</div>
-        <div class="tab" data-tab="tab_Manage">Manage Category</div>
+        <div class="tab" data-tab="tab_Manage" >Manage Category</div>
         <div class="tab" data-tab="tab_SignOut" data-tab-name="tab_SignOut">Sign Out</div>
     </div>
-
-    <div id="tab_Expense_Trans" class="tab-content active">
+   <div id="tab_Expense_Trans" class="tab-content active">
     <form action="addExpenseServlet" method="post" id="addExpenseForm">
        <table class="table">
        	  <tr>
@@ -96,6 +101,11 @@
        	  </tr>
        	  <tr>
        	  	<td colspan="4" class="td-button">
+       	  	  	<c:if test="${not empty messageModel}">
+   				  <span id="msg" style="font-size: 12px; color:red">${messageModel.message}</span><br>
+    
+                  <c:remove var="messageModel" scope="session" />
+                </c:if>
        	  	  <button type="button" class="custom-button" id="addExpenseSubmit">submit</button>
        	  	</td>
        	  </tr>
@@ -123,17 +133,37 @@
        	  	<td colspan="3" class="td"><textarea id="income_description" name="income_description"></textarea></td>
        	  </tr>
        	  <tr>
-       	  	<td colspan="4" class="td-button"><button type="button" class="custom-button" id="income_submit">submit</button></td>
+       	  	<td colspan="4" class="td-button">
+       	  	    <c:if test="${not empty messageModel}">
+   				  <span id="msg" style="font-size: 12px; color:red">${messageModel.message}</span><br>
+    
+                  <c:remove var="messageModel" scope="session" />
+                </c:if>
+       	  	  <button type="button" class="custom-button" id="income_submit">submit</button>
+       	  	</td>
        	  </tr>
        </table> 
       </form>
     </div>
 
-    <div id="tab_Expense_Report" class="tab-content">
+    <div id="tab_Expense_Report" class="tab-content <c:if test="${activeTab == 'tab_Expense_Report'}">active</c:if>">
 
     </div>
    <div id="tab_Income_Report" class="tab-content">
-
+	  <form id="incomeReportForm" action="" method="post">
+	    <table class="table">
+	      <tr>
+	        <th colspan="7">Income Transaction Report</th>
+	      </tr>
+	      <tr>
+	        <td class="td_report" width="10%"> </td>
+	        <td class="td_report" width="15%">Name</td>
+	        <td class="td_report" width="15%">Amount</td>
+	        <td class="td_report" width="15%">Date</td>
+	        <td class="td_report">Note</td>
+	      </tr>
+	    </table>
+	  </form>
     </div>
    <div id="tab_Update_passwd" class="tab-content">
       <form action="updatePasswordServlet" method="post" id="updatePasswordForm">
@@ -155,7 +185,11 @@
 	   	  	  </tr>
 	   	  	  <tr>
 	   	  	   	 <td colspan="2" class="td-button">
-	   	  	   	 	<span id="msg" style="font-size: 12px; color:red">${messageModel.message}</span><br>
+	   	  	   	 <c:if test="${not empty messageModel}">
+   				  <span id="msg" style="font-size: 12px; color:red">${messageModel.message}</span><br>
+    
+                  <c:remove var="messageModel" scope="session" />
+                </c:if>
 	   	  	   	    <button class="custom-button" id="updatePasswd" type="button">Submit</button>
 	   	  	   	 </td>
 	   	  	  </tr>

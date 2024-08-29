@@ -1,5 +1,8 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import entity.Expense;
@@ -23,4 +26,22 @@ public class ExpenseService {
 		}
 		return messageModel;
 	}
+	/**
+	 * Get all expense transaction for current user.
+	 * @param userId
+	 * @return
+	 */
+	public List<Expense> getExpenseTrans(int userId, String orderby){
+		List<Expense> expenseList = new ArrayList<>();
+		SqlSession sqlSession = GetSqlSession.createSqlSession();
+		try {
+			ExpenseMapper expenseMapper = sqlSession.getMapper(ExpenseMapper.class);
+			expenseList = expenseMapper.queryExpenseOrderBy(userId,orderby);
+		}finally {
+			sqlSession.close();
+		}
+		return expenseList;
+	}
+	
+	
 }

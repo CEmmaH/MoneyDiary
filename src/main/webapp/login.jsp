@@ -14,7 +14,7 @@
 <div style="text-align: center">
 	<!-- action="/login" is a absolute path，action="login" is a relative path-->
 	<form action="login" method="post" id="loginForm">
-		<table class="table">
+		<table class="table-flex">
 			<tr>
 				<td class="td">User Name: </td>			
 				<!--${messageModel.object.userName} userName need to mathc User Object -->

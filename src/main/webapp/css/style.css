@@ -27,6 +27,13 @@
 		margin: 1%;
 	}
 	.table {
+      justify-content: center;
+      align-items: center;
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+	.table-flex {
 	  display: flex;
       justify-content: center;
       align-items: center;
@@ -81,6 +88,11 @@
 	  text-align: left;
 	  padding: 8px;
 	  width: 150px;
+	}
+	.td_report{
+	  border: 1px solid #dddddd;
+	  text-align: center;
+	  padding: 8px;
 	}
 	.td-title{
 	  border: 1px solid #dddddd;
@@ -187,8 +199,7 @@
 	    width: 60px;
 	    height: 30px;
 	    right:0;
-	    top: 50%; /* 垂直居中对齐 */
-       
+	    top: 50%; /* 垂直居中对齐 */       
     }
 	.small-button:hover {
 	    background-color: #0056b3; /* 背景颜色在悬停时变更 */
@@ -202,6 +213,38 @@
 	
 	/* 活动状态 */
 	.small-button:active {
+	    background-color: #004494; /* 背景颜色在按下时变更 */
+	}
+	.medium-button{
+    	padding: 5px 10px; /* 内边距 */
+	    font-size: 16px; /* 字体大小 */
+	    font-weight: bold; /* 字体粗细 */
+	    color: white; /* 字体颜色 */
+	    background-color: #007BFA; /* 背景颜色 */
+	    border: none; /* 边框 */
+	    border-radius: 5px; /* 边框圆角 */
+	    cursor: pointer; /* 鼠标指针 */
+	    transition: background-color 0.3s ease; /* 背景颜色过渡效果 */
+	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+	    text-transform: uppercase; /* 字母大写 */
+	    letter-spacing: 1px; /* 字母间距 */
+	    width: 90px;
+	    height: 30px;
+	    right:0;
+	    top: 50%; /* 垂直居中对齐 */       
+    }
+    .medium-button:hover {
+	    background-color: #0056b3; /* 背景颜色在悬停时变更 */
+	}
+	
+	/* 聚焦状态 */
+	.medium-button:focus {
+	    outline: none; /* 去掉默认的聚焦边框 */
+	    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* 自定义聚焦阴影 */
+	}
+	
+	/* 活动状态 */
+	.medium-button:active {
 	    background-color: #004494; /* 背景颜色在按下时变更 */
 	}
 	.custom-button {

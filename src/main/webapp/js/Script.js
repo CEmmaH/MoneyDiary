@@ -11,6 +11,10 @@ $(document).ready(function(){
 			logout();
 			return;
 		 }
+		 if(tabname == "tab_Expense_Report"){
+			expenseReport();
+			return;
+		 }
          // Add active class to the clicked tab and corresponding tab content
          $(this).addClass('active');
          $('#' + $(this).data('tab')).addClass('active');
@@ -25,6 +29,35 @@ function logout(){
 	  success: function(response) {
 	      // 成功退出后的操作，例如重定向到登录页面
 	   	window.location.href = '/MoneyDiary/login.jsp';
+	  },
+	  error: function(xhr, status, error) {
+	      // 处理错误
+	    console.error('Error logging out:', error);
+	  }
+	});	
+}
+
+function expenseReport(){
+	$.ajax({
+	  url: '/MoneyDiary/expenseReportServlet',  // 服务器上处理登出的端点
+	  type: 'POST',
+	  contentType: 'application/json',
+	  xhrFields: {
+	    withCredentials: true  // Ensure cookies are sent with the request
+	  },
+	  success: function(response) {
+		$('.tab, .tab-content').removeClass('active');  // Remove active class from all tabs and contents
+		           
+		// Assuming you want to activate a specific tab, for example, "tab_Success"
+		var tabId = 'tab_Expense_Report'; // The ID of the tab you want to activate
+		var tabSelector = '[data-tab-name="' + tabId + '"]'; // Selector for the tab
+		var tabContentSelector = '#' + tabId; // Selector for the tab content
+
+		// Add active class to the specific tab and its corresponding content
+		$(tabSelector).addClass('active');
+		$(tabContentSelector).addClass('active');
+		$(tabContentSelector).html(response);
+//	   	window.location.href = '/MoneyDiary/index.jsp';
 	  },
 	  error: function(xhr, status, error) {
 	      // 处理错误

@@ -54,8 +54,6 @@ public class UserServlet extends HttpServlet{
 			resp.sendRedirect("index.jsp");
 		}else { //failed
 			BaseServlet.forwardToUrl(req, resp, messageModel, "login.jsp");
-//			req.setAttribute("messageModel", messageModel);
-//			req.getRequestDispatcher("login.jsp").forward(req, resp);
 		}
 	}
 

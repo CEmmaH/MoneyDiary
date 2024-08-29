@@ -12,5 +12,7 @@ public interface ExpenseMapper {
 	public Expense queryExpenseById(@Param("id")int id);
 	public List<Expense> queryExpenseByDate(@Param("date")Date date, int userId);
 	public List<Expense> queryExpenseByUserId(@Param("userId")int userId);
-	public void deleteExpenseById(@Param("id")int id);
+	public List<Expense> queryExpenseOrderBy(@Param("userId")int userId,@Param("orderby")String orderby);
+ 	public void deleteExpenseById(@Param("id")int id);
+	
 }

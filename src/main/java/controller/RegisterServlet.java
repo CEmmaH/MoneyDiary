@@ -67,7 +67,6 @@ public class RegisterServlet extends HttpServlet{
 		if(messageModel.getCode()==0) {
 			logger.warn("User registration failed.");
 			user.setHashed_Password(password);
-//			messageModel.setObject(user);
 			BaseServlet.forwardToRegister(request, response, messageModel);
 		}else {
 			logger.info("User registration successful.");
