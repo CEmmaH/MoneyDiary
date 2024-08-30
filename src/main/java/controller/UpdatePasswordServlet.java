@@ -39,6 +39,7 @@ public class UpdatePasswordServlet extends HttpServlet{
 			messageModel.setObject(user);
 			messageModel = userService.updateUserPassword(user.getId(), oldPassword, newPassword);
 			request.setAttribute("activeTab", "tab_Update_passwd");
+			request.getSession().setAttribute("activeTab", "tab_Update_passwd");
 			BaseServlet.redirectToUrl(request, response, user, messageModel, "index.jsp");
 		}
 	}

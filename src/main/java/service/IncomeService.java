@@ -1,5 +1,8 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import entity.Income;
@@ -27,5 +30,22 @@ public class IncomeService {
 			sqlSession.close();
 		}
 		return messageModel;
+	}
+	/**
+	 * Get Income transactions order by the request
+	 * @param userId
+	 * @param orderby
+	 * @return
+	 */
+	public List<Income> getIncometrans(int userId, String orderby){
+		List<Income> incomeTrans = new ArrayList<>();
+		SqlSession sqlSession = GetSqlSession.createSqlSession();
+		try {
+			IncomeMapper incomeMapper = sqlSession.getMapper(IncomeMapper.class);
+			incomeTrans = incomeMapper.queryIncomeOrderBy(orderby, userId);
+		}finally {
+			sqlSession.close();
+		}
+		return incomeTrans;
 	}
 }

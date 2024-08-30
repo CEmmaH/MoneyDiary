@@ -8,10 +8,19 @@
 	<select id="queryIncomeById" parameterType="int" resultType="entity.Income">
 		select * from Income where id = #{id};
 	</select>
-	<select id="queryIncomeByDate" parameterType="int" resultType="entity.Account">
-		select * from Income where date = #{date};
+	<select id="queryIncomeOrderBy" parameterType="map" resultType="entity.Income">
+		select * from Income where user_id = #{userId} 
+			<if test="orderby != null and orderby != ''">
+			ORDER BY
+			<choose>
+           		 <when test="orderby == 'amount'">amount</when>
+          		 <when test="orderby == 'date'">date</when>
+            	 <when test="orderby == 'name'">name</when>
+                <otherwise>id</otherwise> <!-- Default sorting if no match -->
+              </choose>
+           </if>
 	</select>
-	<select id="queryIncomeByUserId" parameterType="int" resultType="entity.Account">
+	<select id="queryIncomeByUserId" parameterType="int" resultType="entity.Income">
 		select * from Income where user_id = #{userId};
 	</select>
 	<delete id="deleteIncomeById" parameterType="int">

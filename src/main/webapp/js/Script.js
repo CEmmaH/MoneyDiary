@@ -11,10 +11,6 @@ $(document).ready(function(){
 			logout();
 			return;
 		 }
-		 if(tabname == "tab_Expense_Report"){
-			expenseReport();
-			return;
-		 }
          // Add active class to the clicked tab and corresponding tab content
          $(this).addClass('active');
          $('#' + $(this).data('tab')).addClass('active');

@@ -6,6 +6,7 @@
 <%@ page import="entity.Category" %>
 <%@ page import="entity.Account" %>
 <%@ page import="entity.Expense" %>
+<%@ page import="entity.Income" %>
 <%@ page import="entity.vo.MessageModel" %>
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,8 @@
     	response.sendRedirect("login.jsp"); // Session is invalid, redirecting to login page
         return;
      }
+    List<Income> incomeList = (List<Income>)session.getAttribute("incomeList");
+    List<Expense> expenseList = (List<Expense>)session.getAttribute("expenseList");
     List<Category> categories = (List<Category>)session.getAttribute("eCategory");
 	List<Account> accountList = (List<Account>)session.getAttribute("accountList");
 %>
@@ -38,19 +41,28 @@
 
 	<div class="div-container">
     <div class="tabs">
-        <div class="tab active" data-tab="tab_Expense_Trans">Expenses Transaction</div>
-        <div class="tab" data-tab="tab_Income_Trans">Income Transaction</div>
+        <div class="tab <c:if test="${activeTab == 'tab_Expense_Trans'}">active</c:if>" data-tab="tab_Expense_Trans">Expenses Transaction</div>
+        <div class="tab <c:if test="${activeTab == 'tab_Income_Trans'}">active</c:if>" data-tab="tab_Income_Trans">Income Transaction</div>
 
-        <div class="tab" data-tab="tab_Expense_Report" data-tab-name="tab_Expense_Report">
-        	Expenses Report
+        <div class="tab <c:if test="${activeTab == 'tab_Expense_Report'}">active</c:if>" data-tab="tab_Expense_Report" data-tab-name="tab_Expense_Report">
+        	<form action="expenseReportServlet" method="post" style="display:inline;">
+   				 <input type="hidden" name="action" value="generateReport">
+   				 <input type="submit" value="Expenses Report" class="tab-input">
+			</form>       	
         </div>
 
-        <div class="tab" data-tab="tab_Income_Report" data-tab-name="tab_Income_Report">Income Report</div>
-        <div class="tab" data-tab="tab_Update_passwd">Update Password</div>
-        <div class="tab" data-tab="tab_Manage" >Manage Category</div>
+        <div class="tab <c:if test="${activeTab == 'tab_Income_Report'}">active</c:if>" data-tab="tab_Income_Report" data-tab-name="tab_Income_Report">
+       		<form action="incomeReportServlet" method="post" style="display:inline;">
+   				 <input type="hidden" name="action" value="generateReport">
+   				 <input type="submit" value="Income Report" class="tab-input">
+			</form>                
+          
+        </div>
+        <div class="tab <c:if test="${activeTab == 'tab_Update_passwd'}">active</c:if>" data-tab="tab_Update_passwd">Update Password</div>
+        <div class="tab <c:if test="${activeTab == 'tab_Manage'}">active</c:if>" data-tab="tab_Manage" >Manage Category</div>
         <div class="tab" data-tab="tab_SignOut" data-tab-name="tab_SignOut">Sign Out</div>
     </div>
-   <div id="tab_Expense_Trans" class="tab-content active">
+   <div id="tab_Expense_Trans" class="tab-content <c:if test="${activeTab == 'tab_Expense_Trans'}">active</c:if>">
     <form action="addExpenseServlet" method="post" id="addExpenseForm">
        <table class="table">
        	  <tr>
@@ -112,7 +124,7 @@
        </table>
       </form>
     </div>
-    <div id="tab_Income_Trans" class="tab-content">
+    <div id="tab_Income_Trans" class="tab-content <c:if test="${activeTab == 'tab_Income_Trans'}">active</c:if>">
       <form action="addIncomeServlet" method="post" id="addIncomeForm">
        <table class="table">
        	  <tr>
@@ -147,13 +159,64 @@
     </div>
 
     <div id="tab_Expense_Report" class="tab-content <c:if test="${activeTab == 'tab_Expense_Report'}">active</c:if>">
-
-    </div>
-   <div id="tab_Income_Report" class="tab-content">
-	  <form id="incomeReportForm" action="" method="post">
+	  <form id="expenseReportForm" action="expenseReportServlet" method="post">
 	    <table class="table">
 	      <tr>
-	        <th colspan="7">Income Transaction Report</th>
+	        <th colspan="4">Expenses Transaction Report</th>
+	        <th colspan="3"> order by: 
+	            <select id="orderby" name="orderby">
+			    	<option value="date">Date</option>
+			    	<option value="name">Name</option>
+			    	<option value="amount">Amount</option>
+			    	<option value="category">Category</option>
+			    	<option value="account">Account</option>
+			    </select>
+			    <button class="medium-button" type="submit">Submit</button>
+	        </th>
+	      </tr>
+	      <tr>
+	        <td class="td_report" width="5%"> </td>
+	        <td class="td_report" width="15%">Name</td>
+	        <td class="td_report" width="10%">Amount</td>
+	        <td class="td_report" width="15%">Date</td>
+	        <td class="td_report" width="15%">category</td>
+	        <td class="td_report" width="15%">Account</td>
+	        <td class="td_report">Note</td>
+	      </tr>
+
+	      <%
+	      	 if(expenseList != null && expenseList.size()>0){
+	      		 for(int i = 0; i< expenseList.size(); i++){
+	      %>
+	         	<tr>
+			        <td class="td_report" width="5%"> <%=i+1 %></td>
+			        <td class="td_report" width="15%"><%=expenseList.get(i).getName() %></td>
+			        <td class="td_report" width="10%"><%=expenseList.get(i).getAmount() %></td>
+			        <td class="td_report" width="15%"><%=expenseList.get(i).getDate()%></td>
+			        <td class="td_report" width="15%"><%=expenseList.get(i).getCategoryName() %></td>
+			        <td class="td_report" width="15%"><%=expenseList.get(i).getAccountName() %></td>
+			        <td class="td_report"><%=expenseList.get(i).getDescription() %></td>	              
+	            </tr>
+	      <%	
+	      		 }
+	      	 }
+	      %>    	      
+	    </table>
+	  </form>
+    </div>
+   <div id="tab_Income_Report" class="tab-content <c:if test="${activeTab == 'tab_Income_Report'}">active</c:if> ">
+	  <form id="incomeReportForm" action="incomeReportServlet" method="post">
+	    <table class="table">
+	      <tr>
+	        <th colspan="3">Income Transaction Report</th>
+	        <th colspan="2"> order by: 
+	            <select id="orderby_income" name="orderby_income">
+			    	<option value="date">Date</option>
+			    	<option value="name">Name</option>
+			    	<option value="amount">Amount</option>
+			    </select>
+			    <button class="medium-button" type="submit">Submit</button>
+	        </th>	       
 	      </tr>
 	      <tr>
 	        <td class="td_report" width="10%"> </td>
@@ -162,10 +225,25 @@
 	        <td class="td_report" width="15%">Date</td>
 	        <td class="td_report">Note</td>
 	      </tr>
+	      <%
+	      	if(incomeList != null && incomeList.size()>0){
+	      		for(int i = 0; i < incomeList.size(); i++){
+	      %>
+	      	 <tr>
+	      		<td class="td_report" width="10%"><%=i+1 %></td>
+	       		<td class="td_report" width="15%"><%=incomeList.get(i).getName()%></td>
+	        	<td class="td_report" width="15%"><%=incomeList.get(i).getAmount()%></td>
+	        	<td class="td_report" width="15%"><%=incomeList.get(i).getDate() %></td>
+	        	<td class="td_report"><%=incomeList.get(i).getDescription()%></td>
+	      	 </tr>
+	      <%
+	      		}
+	      	}
+	      %>
 	    </table>
 	  </form>
     </div>
-   <div id="tab_Update_passwd" class="tab-content">
+   <div id="tab_Update_passwd" class="tab-content <c:if test="${activeTab == 'tab_Update_passwd'}">active</c:if>">
       <form action="updatePasswordServlet" method="post" id="updatePasswordForm">
 	   	  <table class="table-manage">
 	   	  	 <tr>
@@ -196,7 +274,7 @@
 	   	  </table>
    	  </form>
     </div>
-   <div id="tab_Manage" class="tab-content" >
+   <div id="tab_Manage" class="tab-content <c:if test="${activeTab == 'tab_Manage'}">active</c:if>" >
    	  <div class="table-container">
 
    	  	<table class="table-manage">

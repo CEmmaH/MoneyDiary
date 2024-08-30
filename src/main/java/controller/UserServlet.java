@@ -51,6 +51,7 @@ public class UserServlet extends HttpServlet{
 			req.getSession().setAttribute("user", user);
 			req.getSession().setAttribute("eCategory", categories);
 			req.getSession().setAttribute("accountList", accountList);
+			req.getSession().setAttribute("activeTab", "tab_Expense_Trans");
 			resp.sendRedirect("index.jsp");
 		}else { //failed
 			BaseServlet.forwardToUrl(req, resp, messageModel, "login.jsp");
